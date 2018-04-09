@@ -6,4 +6,8 @@
     - Arbitrage :
       - (Vérifier qu'ils respectent les règles)
       - Donner les renseignements qu'ils demandent (Bluetooth : Robot - arbitre puis arbitre - serveur)
-      - Serveur : Google Cloud Platform
+      - Serveur : Google Cloud Platform (Python)
+      
+- Application :
+    - Prend des photos à intervalles réguliers, et envoi ces photos au serveur
+    - Récupère les requêtes des robots et les envoi au serveur, puis renvoit la réponse du serveur au robot
