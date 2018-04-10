@@ -12,7 +12,7 @@
     - Prend des photos à intervalles réguliers, et envoie ces photos au serveur
     - Récupère les requêtes des robots et les envoie au serveur, puis renvoie la réponse du serveur au robot
 
-Objectifs :
+- Objectifs :
     - Faire application qui prend des photos à interval régulier
     - Faire en sorte que l'application envoie les photos au serveur et que celui-ci les recoit
     - Lire un QrCode sur une image (1 robot)
