@@ -16,8 +16,8 @@
     1) Faire application qui prend des photos à interval régulier
     2) Faire en sorte que l'application envoie les photos au serveur et que celui-ci les recoit
     3) Lire un QrCode sur une image (1 robot)
-    4) Trouver la position d'1 robot
-    5) Lire plusieurs QrCode sur une image
+    4) Lire plusieurs QrCode sur une image
+    5) Trouver la position d'1 robot
     6) Trouver la position de plusieurs robots
     7) Communication robot-arbitre par ondes sonores
 
