@@ -2,19 +2,19 @@
 
 - Serveur :
     - Se connecte à interval régulier à la caméra de l'arbitre
-      - Arbitre la partie (Baliser le terrain pour pouvoir situer les robots sur celui-ci; QrCode sur les robots avec id du robot; Détection des QrCode, récup des id et stockage id-pos dans la BD), OpenCV
+      - Arbitre la partie (<del>Baliser le terrain pour pouvoir situer les robots sur celui-ci</del>; QrCode sur les robots avec id du robot; Détection des QrCode, récup des id et stockage id-pos dans la BD), OpenCV
     - Arbitrage :
       - Vérifier qu'ils respectent les règles et appliquer les malus
         - Ne pas quitter la ligne
         - Ne pas rentrer en collision avec un obstacle
         - Amener les victimes dans le bon hopital
         - Compter les points du robot
-      - (Donner les renseignements qu'ils demandent (Bluetooth : Robot-arbitre puis arbitre-serveur))
+      - <del>Donner les renseignements qu'ils demandent (Bluetooth : Robot-arbitre puis arbitre-serveur)</del>
       
 - Application :
     - Prend des photos à intervalles réguliers, et envoie ces photos au serveur
     - Envoie au serveur le signal de début et de fin de partie
-    - (Récupère les requêtes des robots et les envoie au serveur, puis renvoie la réponse du serveur au robot)
+    - <del>Récupère les requêtes des robots et les envoie au serveur, puis renvoie la réponse du serveur au robot)</del>
 
 - Objectifs :
     1) Faire application qui prend des photos à interval régulier
@@ -25,9 +25,9 @@
     3) Lire un QrCode sur une image (1 robot)
         3.5) Lire plusieurs QrCode sur une image
     -------------
-    4) Lire plusieurs QrCode sur une image
-    5) Trouver la position d'1 robot
-    6) Trouver la position de plusieurs robots
+    4) <del>Lire plusieurs QrCode sur une image</del>
+    5) <del>Trouver la position d'1 robot</del>
+    6) <del>Trouver la position de plusieurs robots</del>
     -------------
     4) Identifier un robot sur le terrain et le rentrer dans la BD
     5) Identifier un robot qui quitte la ligne
