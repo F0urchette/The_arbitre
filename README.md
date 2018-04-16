@@ -1,5 +1,7 @@
 # The_arbitre
 
+## Cahier des charges et journal de bord
+
 - Serveur :
     - Se connecte à interval régulier à la caméra de l'arbitre
       - Arbitre la partie (<del>Baliser le terrain pour pouvoir situer les robots sur celui-ci</del>; QrCode sur les robots avec id du robot; Détection des QrCode, récup des id et stockage id-pos dans la BD), OpenCV
@@ -17,25 +19,23 @@
     - <del>Récupère les requêtes des robots et les envoie au serveur, puis renvoie la réponse du serveur au robot)</del>
 
 - Objectifs :
-    1) Faire application qui prend des photos à interval régulier
+    1. Faire application qui prend des photos à interval régulier
         - 12/04 : Fonctionnel & interface
-    2) Faire en sorte que l'application envoie les photos au serveur et que celui-ci les recoit
+    2. Faire en sorte que l'application envoie les photos au serveur et que celui-ci les recoit
         - 11/04 : Serveur python qui peut recevoir plusieurs images à la suite à partir d'un client python
         - 13/04 : Difficultés à faire communiquer 2 programmes python autrement qu'en localhost
-    3) Lire un QrCode sur une image (1 robot)
-        3.5) Lire plusieurs QrCode sur une image
-    -------------
-    4) <del>Lire plusieurs QrCode sur une image</del>
-    5) <del>Trouver la position d'1 robot</del>
-    6) <del>Trouver la position de plusieurs robots</del>
-    -------------
-    4) Identifier un robot sur le terrain et le rentrer dans la BD
-    5) Identifier un robot qui quitte la ligne
-    6) Identifier un robot qui récupère une victime
-    7) Identifier un robot qui s'arrête sur un hôpital
-    8) Différencier les types de victime et tester si celui-ci correspond avec celui de l'hôpital
-    9) Identifier la collision de 2 robots
-    10) Etapes 4, 5, 6, 7 et 8 avec plusieurs robots
+    3. Lire un QrCode sur une image (1 robot)
+        1. Lire plusieurs QrCode sur une image
+    4. <del>Lire plusieurs QrCode sur une image</del>
+    5. <del>Trouver la position d'1 robot</del>
+    6. <del>Trouver la position de plusieurs robots</del>
+    4. Identifier un robot sur le terrain et le rentrer dans la BD
+    5. Identifier un robot qui quitte la ligne
+    6. Identifier un robot qui récupère une victime
+    7. Identifier un robot qui s'arrête sur un hôpital
+    8. Différencier les types de victime et tester si celui-ci correspond avec celui de l'hôpital
+    9. Identifier la collision de 2 robots
+    10. Etapes 4, 5, 6, 7 et 8 avec plusieurs robots
 
 - Données :
     - Robot :
