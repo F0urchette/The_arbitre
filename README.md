@@ -26,7 +26,7 @@
         - 13/04 : Difficultés à faire communiquer 2 programmes python autrement qu'en localhost
     3. Lire un QrCode sur une image (1 robot)
         1. Lire plusieurs QrCode sur une image
-    4. <del>Lire plusieurs QrCode sur une image</del>
+    <del>4. Lire plusieurs QrCode sur une image</del>
     5. <del>Trouver la position d'1 robot</del>
     6. <del>Trouver la position de plusieurs robots</del>
     4. Identifier un robot sur le terrain et le rentrer dans la BD
