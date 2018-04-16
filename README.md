@@ -36,6 +36,7 @@
     8. Différencier les types de victime et tester si celui-ci correspond avec celui de l'hôpital
     9. Identifier la collision de 2 robots
     10. Etapes 4, 5, 6, 7 et 8 avec plusieurs robots
+    11. Communiquer le terrain aux robot (par ondes sonores si bluetooth non disponible)
 
 - Données :
     - Robot :
