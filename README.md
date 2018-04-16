@@ -52,3 +52,8 @@
     - Hopital
         - int : type (0 : enfant, 1 : adulte *par exemple*)
         - <del>(float, float) : position</del>
+
+## Infos supplémentaires
+
+Ceci est le repository du serveur du projet, voici le lien du repository de l'application mobile :
+https://github.com/Ravelator/Arbiter_Android
