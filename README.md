@@ -20,11 +20,12 @@
 
 - Objectifs :
     1. Faire application qui prend des photos à interval régulier
-        - 12/04 : Fonctionnel & interface
+        - 12/04 : Fonctionnel & interface (Antoine)
     2. Faire en sorte que l'application envoie les photos au serveur et que celui-ci les recoit
         - 11/04 : Serveur python qui peut recevoir plusieurs images à la suite à partir d'un client python
         - 13/04 : Difficultés à faire communiquer 2 programmes python autrement qu'en localhost
-        - 16/04-22/04 Travail sur protocole TCP pour faire communiquer l'application et le serveur, des difficultés.
+        - 16/04-22/04 : Travail sur protocole TCP pour faire communiquer l'application et le serveur, des difficultés. (Antoine)
+        - 22/04 : Des messages textes peuvent êtres transmis, seulement l'application plante après envoi. Les adresses utilisés sont des                   adresses locales. (Antoine)
     3. Lire un QrCode sur une image (1 robot)
         1. Lire plusieurs QrCode sur une image
     4. <del>Lire plusieurs QrCode sur une image</del>
