@@ -20,10 +20,13 @@
 
 - Objectifs :
     1. Faire application qui prend des photos à interval régulier
-        - 12/04 : Fonctionnel & interface
+        - 12/04 : Fonctionnel & interface (Antoine)
     2. Faire en sorte que l'application envoie les photos au serveur et que celui-ci les recoit
-        - 11/04 : Serveur python qui peut recevoir plusieurs images à la suite à partir d'un client python
-        - 13/04 : Difficultés à faire communiquer 2 programmes python autrement qu'en localhost
+        - 11/04 : Serveur python qui peut recevoir plusieurs images à la suite à partir d'un client python (Mika)
+        - 13/04 : Difficultés à faire communiquer 2 programmes python autrement qu'en localhost (Mika)
+        - 16/04 : Classes modèle (Mika)
+        - 16/04-22/04 : Travail sur protocole TCP pour faire communiquer l'application et le serveur, des difficultés. (Antoine)
+        - 22/04 : Des messages textes peuvent êtres transmis, seulement l'application plante après envoi. Les adresses utilisés sont des                   adresses locales. (Antoine)
     3. Lire un QrCode sur une image (1 robot)
         1. Lire plusieurs QrCode sur une image
     4. <del>Lire plusieurs QrCode sur une image</del>
@@ -31,6 +34,16 @@
     6. <del>Trouver la position de plusieurs robots</del>
     4. Identifier un robot sur le terrain et le rentrer dans la BD
     5. Identifier un robot qui quitte la ligne
+        1. Transformer une image RGB en grayscale
+            - 17/04 : Fonctionnel (Mika)
+        2. Binariser une image grayscale
+            - 18/04 : Ecriture d'une fonction de binarisation (Mika)
+                - Problème de type de variable
+                - Problème de temps d'exécution de la binarisation (~15 secondes) -> non viable
+            - 19/04-20/04 : Travail sur une mise en place de thread pour réduire le temps d'exécution (Mika)
+                - Peu de gain et toujours le problème de type de variable
+            - 23/04 : Binarisation par API (Mika)
+                - Traitement instantané
     6. Identifier un robot qui récupère une victime
     7. Identifier un robot qui s'arrête sur un hôpital
     8. Différencier les types de victime et tester si celui-ci correspond avec celui de l'hôpital
