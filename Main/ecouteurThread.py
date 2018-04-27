@@ -3,6 +3,8 @@
 
 import socket
 import threading
+from PIL import Image
+import io
 
 
 class ClientThread(threading.Thread):
@@ -17,10 +19,17 @@ class ClientThread(threading.Thread):
     def run(self):
         print("Connection de %s %s" % (self.ip, self.port,))
 
-        r = self.clientsocket.recv(2048)
-        print("Ouverture du fichier: ", r, "...")
-        #fp = open(r, 'rb')
-        #self.clientsocket.send(fp.read())
+        bytes_data = self.clientsocket.recv(2048)
+        part = bytes_data
+        i = 1
+        print("Part #", str(i))
+        while part.decode() != 'Sent':
+            part = self.clientsocket.recv(1024)
+            bytes_data += part
+            i += 1
+            print("Part #", str(i))
+        img = Image.frombytes('RGB', (1366, 768), bytes_data)
+        img.save('newimg.jpg')
 
         print("Client déconnecté...")
 
