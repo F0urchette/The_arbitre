@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+import base64
 import socket
 import threading
-from PIL import Image
-import io
 
 
 class ClientThread(threading.Thread):
@@ -18,20 +16,10 @@ class ClientThread(threading.Thread):
 
     def run(self):
         print("Connection de %s %s" % (self.ip, self.port,))
-
-        bytes_data = self.clientsocket.recv(2048)
-        part = bytes_data
-        i = 1
-        print("Part #", str(i))
-        while part.decode() != 'Sent':
-            part = self.clientsocket.recv(1024)
-            bytes_data += part
-            i += 1
-            print("Part #", str(i))
-        img = Image.frombytes('RGB', (1366, 768), bytes_data)
-        img.save('newimg.jpg')
-
-        print("Client déconnecté...")
+        bytes_data = self.clientsocket.recv(65536)
+        print (bytes_data)
+        with open("imageToSave.png", "wb") as fh:
+            fh.write(base64.decodebytes(bytes_data))
 
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
