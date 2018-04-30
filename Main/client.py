@@ -4,7 +4,7 @@ import socket
 import cv2
 import numpy
 
-TCP_IP = 'localhost'
+TCP_IP = '192.168.0.50'
 TCP_PORT = 5001
 
 sock = socket.socket()
