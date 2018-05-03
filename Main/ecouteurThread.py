@@ -7,7 +7,7 @@ import struct
 from base64 import decodestring
 from PIL import Image
 from base64 import decodestring
-
+import datetime
 
 class ClientThread(threading.Thread):
 
@@ -17,13 +17,13 @@ class ClientThread(threading.Thread):
         self.port = port
         self.clientsocket = clientsocket
         print("[+] Nouveau thread pour %s %s" % (self.ip, self.port,))
+        self.numero = 1
 
     def run(self):
-        i = 1
         print("Connection de %s %s" % (self.ip, self.port,))
         received_chunks = []
         buf_size = 3447429
-        size = 3447429
+        size = buf_size
         remaining = size
         while remaining > 0:
             received = self.clientsocket.recv(min(remaining, buf_size))
@@ -33,16 +33,17 @@ class ClientThread(threading.Thread):
             remaining -= len(received)
         res = (b''.join(received_chunks))
         print (res)
-        strin = str(i)+"imageToSave.png"
-        i = i + 1
+        now = datetime.datetime.now()
+        filename = str(('%s,%s'%(now.minute,now.second)))+".png"
+        self.numero = self.numero+1
+        #print ("self.numero : "),self.numero
         #base64.b64decode(bytes(res, 'utf-8'))
         imgdata = decode_base64(res)
-        filename = str(i)+'some_image.jpg'  # I assume you have a way of picking unique filenames
         with open(filename, 'wb') as f:
             f.write(imgdata)
 
 
-
+#TODO : METTRRE LE I HORS DE LA FONCTION;
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 tcpsock.bind(("", 5001))
