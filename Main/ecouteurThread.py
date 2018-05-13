@@ -8,6 +8,8 @@ from base64 import decodestring
 from PIL import Image
 from base64 import decodestring
 import datetime
+import cv2
+from io import BytesIO
 
 class ClientThread(threading.Thread):
 
@@ -22,7 +24,7 @@ class ClientThread(threading.Thread):
     def run(self):
         print("Connection de %s %s" % (self.ip, self.port,))
         received_chunks = []
-        buf_size = 3447429
+        buf_size = 5447429
         size = buf_size
         remaining = size
         while remaining > 0:
@@ -32,9 +34,9 @@ class ClientThread(threading.Thread):
             received_chunks.append(received)
             remaining -= len(received)
         res = (b''.join(received_chunks))
-        print (res)
+        #print (res)
         now = datetime.datetime.now()
-        filename = str(('%s,%s'%(now.minute,now.second)))+".png"
+        filename = str(('%s_h_%s_m_%s_s'%(now.hour,now.minute,now.second)))+".jpeg"
         self.numero = self.numero+1
         #print ("self.numero : "),self.numero
         #base64.b64decode(bytes(res, 'utf-8'))
@@ -43,10 +45,28 @@ class ClientThread(threading.Thread):
             f.write(imgdata)
 
 
+def recvall2(s, size):
+    received_chunks = []
+    buf_size = 4096
+    remaining = size
+    while remaining > 0:
+        received = s.recv(min(remaining, buf_size))
+        if not received:
+            raise Exception('unexcepted EOF')
+        received_chunks.append(received)
+        remaining -= len(received)
+    return b''.join(received_chunks)
+
 #TODO : METTRRE LE I HORS DE LA FONCTION;
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 tcpsock.bind(("", 5001))
+
+def readb64(base64_string):
+    sbuf = BytesIO()
+    sbuf.write(base64.b64decode(base64_string))
+    pimg = Image.open(sbuf)
+    return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 def decode_base64(data):
     """Decode base64, padding being optional.
