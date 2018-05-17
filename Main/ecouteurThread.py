@@ -23,18 +23,20 @@ class ClientThread(threading.Thread):
 
     def run(self):
         print("Connection de %s %s" % (self.ip, self.port,))
+        res = ""
+        print ("res : ",res)
         received_chunks = []
-        buf_size = 5447429
+        buf_size = 5448429
         size = buf_size
         remaining = size
-        while remaining > 0:
-            received = self.clientsocket.recv(min(remaining, buf_size))
+        while True:
+            received = self.clientsocket.recv(1024)
             if not received:
-                raise Exception('unexcepted EOF')
+                break
             received_chunks.append(received)
-            remaining -= len(received)
+            #remaining -= len(received)
         res = (b''.join(received_chunks))
-        #print (res)
+        print (res)
         now = datetime.datetime.now()
         filename = str(('%s_h_%s_m_%s_s'%(now.hour,now.minute,now.second)))+".jpeg"
         self.numero = self.numero+1
@@ -43,6 +45,7 @@ class ClientThread(threading.Thread):
         imgdata = decode_base64(res)
         with open(filename, 'wb') as f:
             f.write(imgdata)
+
 
 
 def recvall2(s, size):
