@@ -19,7 +19,7 @@
     <SUITE FILE_PATH="coverage/The_arbitre$client__1_.coverage" NAME="client (1) Coverage Results" MODIFIED="1524229002414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Main" />
     <SUITE FILE_PATH="coverage/The_arbitre$ecouteur.coverage" NAME="ecouteur Coverage Results" MODIFIED="1524406977990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Main" />
     <SUITE FILE_PATH="coverage/The_arbitre$echo.coverage" NAME="echo Coverage Results" MODIFIED="1524407021990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Main" />
-    <SUITE FILE_PATH="coverage/The_arbitre$ecouteurThread.coverage" NAME="ecouteurThread Coverage Results" MODIFIED="1526904864324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Main" />
+    <SUITE FILE_PATH="coverage/The_arbitre$ecouteurThread.coverage" NAME="ecouteurThread Coverage Results" MODIFIED="1527091809862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Main" />
     <SUITE FILE_PATH="coverage/The_arbitre$server.coverage" NAME="server Coverage Results" MODIFIED="1524229796825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Main" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -63,8 +63,8 @@
       <file leaf-file-name="ecouteurThread.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main/ecouteurThread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+            <state relative-caret-position="570">
+              <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
               <folding>
                 <element signature="e#38#51#0" expanded="true" />
               </folding>
@@ -135,8 +135,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="52" />
-    <option name="y" value="52" />
+    <option name="x" value="343" />
     <option name="width" value="1582" />
     <option name="height" value="702" />
   </component>
@@ -408,18 +407,26 @@
       <option name="project" value="LOCAL" />
       <updated>1526566851615</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Réglages.">
+      <created>1526904879921</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1526904879921</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50416666" side_tool="true" weight="0.32624868" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49583334" visible="true" weight="0.32624868" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49583334" weight="0.3209352" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32943678" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18125" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
@@ -453,7 +460,8 @@
     <MESSAGE value="On peut maintenant prendre plusieurs images a la suite, mais le resultat est assez aléaroire." />
     <MESSAGE value="La barre n'est presque plus présente." />
     <MESSAGE value="Encore quelques problèmes de padding, mais l'image est entière maintenant." />
-    <option name="LAST_COMMIT_MESSAGE" value="Encore quelques problèmes de padding, mais l'image est entière maintenant." />
+    <MESSAGE value="Réglages." />
+    <option name="LAST_COMMIT_MESSAGE" value="Réglages." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -873,8 +881,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Main/ecouteurThread.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+        <state relative-caret-position="570">
+          <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
           <folding>
             <element signature="e#38#51#0" expanded="true" />
           </folding>

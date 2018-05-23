@@ -31,13 +31,22 @@ class ClientThread(threading.Thread):
             received_chunks.append(received)
             #remaining -= len(received)
         res = (b''.join(received_chunks))
-        #print (res)
+        print("----------------------------------")
+        print (res)
+        print("----------------------------------")
         now = datetime.datetime.now()
+        print ("Nom fichier : ")
         filename = str(('%s_h_%s_m_%s_s'%(now.hour,now.minute,now.second)))+".jpeg"
-        imgdata = ""
+        print (filename)
+        print("----------------------------------")
+        print("Type de res:")
+        print(type(res))
+        print("----------------------------------")
+        #if b'==\n' not in res:
+            #res = res.decode('utf-8').strip()
         #res += "=" * ((4 - len(res) % 4) % 4)
         outputdata = decode_base64(res)
-        print(outputdata)
+        #print(outputdata)
         with open(filename, 'wb') as f:
             f.write(outputdata)
 
@@ -52,10 +61,13 @@ def decode_base64(data):
     :returns: The decoded byte string.
 
     """
-    missing_padding = len(data) % 4
-    if missing_padding != 0:
-        data += b'='* (4 - missing_padding)
-    return base64.decodestring(data)
+    try:
+        missing_padding = len(data) % 4
+        if missing_padding != 0:
+            data += b'='* (4 - missing_padding)
+        return base64.decodestring(str(data))
+    except:
+        return base64.urlsafe_b64decode(str(data))
 
 while True:
     tcpsock.listen(10)
