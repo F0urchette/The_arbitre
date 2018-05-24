@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
+from __future__ import division
 import base64
+import datetime
 import socket
 import threading
-import struct
-from base64 import decodestring
-from PIL import Image
-from base64 import decodestring
-import datetime
 import cv2
-from io import BytesIO
+import numpy
+
+
 
 class ClientThread(threading.Thread):
 
@@ -29,7 +28,6 @@ class ClientThread(threading.Thread):
             if not received:
                 break
             received_chunks.append(received)
-            #remaining -= len(received)
         res = (b''.join(received_chunks))
         print("----------------------------------")
         print (res)
@@ -45,10 +43,35 @@ class ClientThread(threading.Thread):
         #if b'==\n' not in res:
             #res = res.decode('utf-8').strip()
         #res += "=" * ((4 - len(res) % 4) % 4)
+        print(len(res))
+        taille = len(res)
+        print(type(taille))
+        taille = taille/2
+        print(taille)
+        outputdata1 = res[:2000000]
+        outputdata2 = res[2000000:]
+
+        #res1 = decode_base64(outputdata1)
+        #res2 = decode_base64(outputdata2)
+
+        #outputdata = res1 + res2
+        """"
+        file_like = cStringIO.StringIO(data)
+
+        img = PIL.Image.open(file_like)
+        img.show()"""
+
         outputdata = decode_base64(res)
+        #data = numpy.fromstring(res, dtype='uint8')
+        #decimg = cv2.imdecode(data, 1)
+        #cv2.imwrite(filename, decimg)
+        #cv2.imshow('SERVER', decimg)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
         #print(outputdata)
-        with open(filename, 'wb') as f:
-            f.write(outputdata)
+        fh = open(filename, "wb")
+        fh.write(outputdata)
+        fh.close()
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -61,13 +84,15 @@ def decode_base64(data):
     :returns: The decoded byte string.
 
     """
-    try:
-        missing_padding = len(data) % 4
-        if missing_padding != 0:
-            data += b'='* (4 - missing_padding)
-        return base64.decodestring(str(data))
-    except:
-        return base64.urlsafe_b64decode(str(data))
+
+    missing_padding = len(data) % 4
+    if missing_padding == 3:
+        data += b'A=='
+    elif missing_padding == 1 or missing_padding == 2:
+        data += b'=' * missing_padding
+    #if missing_padding != 0:
+        #data += b'=' * (4 - missing_padding)
+    return base64.b64decode(data)
 
 while True:
     tcpsock.listen(10)
