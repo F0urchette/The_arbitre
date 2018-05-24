@@ -7,9 +7,9 @@ import socket
 import threading
 import cv2
 import numpy
-
-
-
+from PIL import Image
+import io
+import codecs
 class ClientThread(threading.Thread):
 
     def __init__(self, ip, port, clientsocket):
@@ -40,9 +40,8 @@ class ClientThread(threading.Thread):
         print("Type de res:")
         print(type(res))
         print("----------------------------------")
-        #if b'==\n' not in res:
-            #res = res.decode('utf-8').strip()
-        #res += "=" * ((4 - len(res) % 4) % 4)
+
+        """
         print(len(res))
         taille = len(res)
         print(type(taille))
@@ -50,7 +49,7 @@ class ClientThread(threading.Thread):
         print(taille)
         outputdata1 = res[:2000000]
         outputdata2 = res[2000000:]
-
+        """
         #res1 = decode_base64(outputdata1)
         #res2 = decode_base64(outputdata2)
 
@@ -61,7 +60,13 @@ class ClientThread(threading.Thread):
         img = PIL.Image.open(file_like)
         img.show()"""
 
-        outputdata = decode_base64(res)
+        #outputdata = decode_base64(res)
+
+        #image = Image.open(io.BytesIO(res))
+        #image.show()
+
+
+        """"
         #data = numpy.fromstring(res, dtype='uint8')
         #decimg = cv2.imdecode(data, 1)
         #cv2.imwrite(filename, decimg)
@@ -69,8 +74,13 @@ class ClientThread(threading.Thread):
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
         #print(outputdata)
+         """
+        #image = Image.frombytes('RGBA', (1500,1500), res, 'raw')
+        #image.show()
+
+
         fh = open(filename, "wb")
-        fh.write(outputdata)
+        fh.write(decode_base64(res))
         fh.close()
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
