@@ -28,8 +28,9 @@
         - 16/04-22/04 : Travail sur protocole TCP pour faire communiquer l'application et le serveur, des difficultés. (Antoine)
         - 22/04 : Des messages textes peuvent êtres transmis, seulement l'application plante après envoi. Les adresses utilisés sont des                   adresses locales. (Antoine)
     3. Lire un QrCode sur une image (1 robot)
-        1. Lire plusieurs QrCode sur une image
-    4. <del>Lire plusieurs QrCode sur une image</del>
+        1. <del>Détecter un QrCode à l'aide du classificateur de Haar avec OpenCV (Kevin)</del>
+        2. Détecter, lire et localiser un QRCode avec PyZbar (Kevin)
+    4. Lire plusieurs QrCode sur une image
     5. <del>Trouver la position d'1 robot</del>
     6. <del>Trouver la position de plusieurs robots</del>
     4. Identifier un robot sur le terrain et le rentrer dans la BD
