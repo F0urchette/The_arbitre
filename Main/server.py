@@ -23,25 +23,25 @@ def recv_basic(the_socket):
     return b''.join(total_data)
 
 
-TCP_IP = 'localhost'
-TCP_PORT = 5001
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((TCP_IP, TCP_PORT))
-s.listen(True)
+src = cv2.imread("test5.jpg")
+src = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+# Threshold it so it becomes binary
+ret, thresh = cv2.threshold(src,127,255,cv2.THRESH_BINARY)
+cv2.imshow('SERVER',thresh)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+# You need to choose 4 or 8 for connectivity type
+connectivity = 4
+output = cv2.connectedComponentsWithStats(thresh, connectivity, cv2.CV_32S)
+# Get the results
+# The first cell is the number of labels
+num_labels = output[0]
+# The second cell is the label matrix
+labels = output[1]
+# The third cell is the stat matrix
+stats = output[2]
+# The fourth cell is the centroid matrix
+centroids = output[3]
+print(num_labels)
 
-
-while 1:
-    conn, addr = s.accept()
-
-    stringData = recv_basic(conn)
-    data = numpy.fromstring(stringData, dtype='uint8')
-
-    decimg=cv2.imdecode(data,1)
-    print("image recue")
-    cv2.imwrite('resultat.jpg', decimg)
-    cv2.imshow('SERVER',decimg)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
-s.close()

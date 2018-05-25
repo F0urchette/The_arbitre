@@ -5,6 +5,9 @@ import base64
 import datetime
 import socket
 import threading
+import re
+import math
+from Modele import Robot, Victime, Hopital
 import cv2
 import numpy
 from PIL import Image
@@ -13,6 +16,7 @@ import codecs
 class ClientThread(threading.Thread):
 
     def __init__(self, ip, port, clientsocket):
+        print(a)
         threading.Thread.__init__(self)
         self.ip = ip
         self.port = port
@@ -78,9 +82,37 @@ class ClientThread(threading.Thread):
         #image = Image.frombytes('RGBA', (1500,1500), res, 'raw')
         #image.show()
 
+        image = decode_base64(res)
+        qrCodes = findQrCodes(image)
+
+        # On entre la position des victimes et des hopitaux au début de la partie
+        if not setup :
+            # Passe la variable setup a True
+            setupVictimeEtHopitaux(qrCodes)
+
+        # On traite tous les qrCodes trouves sur l'image
+        for qrCode in qrCodes :
+            # Renvoie l'id inscrit dans le qrCode et un booleen selon s'il s'agit d'un robot ou non
+            id, isRobot = verifQrCode(qrCode)
+
+            # On traite donc un robot
+            if isRobot :
+                # On met a jour la position du robot dans la BD
+                updatePosRobot(id, qrCode)
+
+                # On verifie si le robot a quitte la ligne et on lui applique un malus si c'est le cas
+                malusLigne(id, image)
+
+                # On compte les points si le robot est pret d'un hopital, récupere une victime, tout en verifiant si la capacite du robot le permet
+                compterPoints(id)
+
+                # S'il n'y a plus de victime on arrete le serveur et on sauvegarde les scores
+                if isPlusDeVictime() :
+                    fin = True
+                    printScore()
 
         fh = open(filename, "wb")
-        fh.write(decode_base64(res))
+        fh.write(image)
         fh.close()
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -104,7 +136,132 @@ def decode_base64(data):
         #data += b'=' * (4 - missing_padding)
     return base64.b64decode(data)
 
-while True:
+def ajouter(qrCode) :
+    id = str(lireIdQrCode(qrCode))
+    if re.match("\d", id) :
+        ajouterRobot(id, lirePositionQrCode(qrCode))
+    elif re.match("[a-z]", id) :
+        ajouterVictime(id, lireTypeQrCode(qrCode), lirePositionQrCode(qrCode))
+    elif re.match("[A-Z]", id) :
+        ajouterHopital(id, lireTypeQrCode(qrCode), lirePositionQrCode(qrCode))
+    else :
+        None
+
+def ajouterRobot(id, position) :
+    id = str(id)
+    if id in robots :
+        robot = robots[id]
+        robot.majPosition(position)
+    else :
+        robot = Robot(id, position)
+        robots[id] = robot
+
+def ajouterVictime(id, type, position) :
+    id = str(id)
+    if id not in victimes:
+        victime = Victime(id, type, position)
+        victimes[id] = victime
+
+def ajouterHopital() :
+    id = str(id)
+    if id not in hopitaux:
+        hopital = Hopital(id, type, position)
+        hopitaux[id] = hopital
+
+def lireIdQrCode(qrCode) :
+    return ""
+
+def lireTypeQrCode(qrCode) :
+    return 0
+
+def lirePositionQrCode(qrCode) :
+    return (0, 0)
+
+def setupVictimeEtHopitaux(qrCodes) :
+    for qrCode in qrCodes :
+        ajouter(qrCode)
+    setup = True
+
+def verifQrCode(qrCode) :
+    id = lireIdQrCode(qrCode)
+    isRobot = False
+    if re.match("\d", id) :
+        isRobot = True
+    return id, isRobot
+
+def updatePosRobot(id, qrCode) :
+    id = str(id)
+    ajouterRobot(id, lirePositionQrCode(qrCode))
+
+def isPlusDeVictime() :
+    for victime in victimes :
+        if victime.isDisponible() :
+            return False
+    return True
+
+def malusLigne(id, image) :
+    id = str(id)
+
+    src = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # Threshold it so it becomes binary
+    ret, thresh = cv2.threshold(src, 127, 255, cv2.THRESH_BINARY)
+    # You need to choose 4 or 8 for connectivity type
+    connectivity = 4
+    output = cv2.connectedComponentsWithStats(thresh, connectivity, cv2.CV_32S)
+    # Get the results
+    # The first cell is the number of labels
+    num_labels = output[0]
+    num_labels -= 1
+
+    if num_labels != 1 :
+        robot = robots[id]
+        robot.ajouterMalusLigne()
+
+def compterPoints(id) :
+    id = str(id)
+    robot = robots[id]
+    isProche, victime = isProcheDeVictime(robot)
+    if isProche :
+        if victime.isDisponible() :
+            if robot.isPlaceDisponible() :
+                type = victime.getType()
+                victime.setNonDisponible()
+                robot.transporter(type)
+    else
+        isProche, hopital = isProcheDeHopital(robot)
+        if isProche:
+            type = hopital.getType()
+            robot.sauver(type)
+
+def distance2Points(a, b) :
+    p1 = pow(b[0] - a[0], 2)
+    p2 = pow(b[1] - a[1], 2)
+    return math.sqrt(p1 + p2)
+
+def isProcheDeVictime(robot) :
+    for victime in victimes :
+        d = distance2Points(robot.getPosition(), victime.getPosition())
+        if d <= 5 :
+            return True, victime
+    return False, None
+
+def isProcheDeHopital(robot) :
+    for hopital in hopitaux :
+        d = distance2Points(robot.getPosition(), hopital.getPosition())
+        if d <= 5 :
+            return True, hopital
+    return False, None
+
+def printScore() :
+
+
+fin = False
+setup = False
+robots = dict()
+victimes = dict()
+hopitaux = dict()
+
+while not fin:
     tcpsock.listen(10)
     print("En écoute...")
     (clientsocket, (ip, port)) = tcpsock.accept()
