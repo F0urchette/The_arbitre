@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
-from __future__ import division
 import base64
 import datetime
+import math
+import re
 import socket
 import threading
-import re
-import math
-from Modele import Robot, Victime, Hopital
+from collections import namedtuple
+
 import cv2
-import numpy
-from PIL import Image
-import io
-import codecs
+import pyzbar.pyzbar as pz
+
+from Modele import Robot, Victime, Hopital
+
+
 class ClientThread(threading.Thread):
 
     def __init__(self, ip, port, clientsocket):
-        print(a)
         threading.Thread.__init__(self)
         self.ip = ip
         self.port = port
@@ -82,7 +82,11 @@ class ClientThread(threading.Thread):
         #image = Image.frombytes('RGBA', (1500,1500), res, 'raw')
         #image.show()
 
-        image = decode_base64(res)
+        fh = open(filename, "wb")
+        fh.write(res)
+        fh.close()
+
+        image = cv2.imread(filename)
         qrCodes = findQrCodes(image)
 
         # On entre la position des victimes et des hopitaux au début de la partie
@@ -111,9 +115,7 @@ class ClientThread(threading.Thread):
                     fin = True
                     printScore()
 
-        fh = open(filename, "wb")
-        fh.write(image)
-        fh.close()
+
 
 tcpsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcpsock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -135,6 +137,22 @@ def decode_base64(data):
     #if missing_padding != 0:
         #data += b'=' * (4 - missing_padding)
     return base64.b64decode(data)
+
+def findQrCodes(image) :
+    infos = list()
+    objects = pz.decode(image)
+
+    for obj in objects:
+        if obj.type == "QRCODE":
+            x1, y1 = obj.polygon[0]
+            x2, y2 = obj.polygon[2]
+            xc = (x1 + x2) / 2
+            yc = (y1 + y2) / 2
+            infos.append(QRInfo(obj.data, xc, yc))
+        else:
+            print("Erreur : ce n'est pas un QRCode")
+
+    return infos
 
 def ajouter(qrCode) :
     id = str(lireIdQrCode(qrCode))
@@ -162,20 +180,25 @@ def ajouterVictime(id, type, position) :
         victime = Victime(id, type, position)
         victimes[id] = victime
 
-def ajouterHopital() :
+def ajouterHopital(id, type, position) :
     id = str(id)
     if id not in hopitaux:
         hopital = Hopital(id, type, position)
         hopitaux[id] = hopital
 
 def lireIdQrCode(qrCode) :
-    return ""
+    data = qrCode[0]
+    return (data.split(" "))[0]
 
 def lireTypeQrCode(qrCode) :
-    return 0
+    data = qrCode[0]
+    if len(data) == 1 :
+        return None
+    else :
+        return (data.split(" "))[1]
 
 def lirePositionQrCode(qrCode) :
-    return (0, 0)
+    return (qrCode[1], qrCode[2])
 
 def setupVictimeEtHopitaux(qrCodes) :
     for qrCode in qrCodes :
@@ -227,7 +250,7 @@ def compterPoints(id) :
                 type = victime.getType()
                 victime.setNonDisponible()
                 robot.transporter(type)
-    else
+    else :
         isProche, hopital = isProcheDeHopital(robot)
         if isProche:
             type = hopital.getType()
@@ -253,8 +276,9 @@ def isProcheDeHopital(robot) :
     return False, None
 
 def printScore() :
+    return None
 
-
+QRInfo = namedtuple('QRInfo', ['data', 'x', 'y'])
 fin = False
 setup = False
 robots = dict()
