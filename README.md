@@ -30,9 +30,13 @@
     3. Lire un QrCode sur une image (1 robot)
         1. <del>Détecter un QrCode à l'aide du classificateur de Haar avec OpenCV (Kevin)</del>
         2. Détecter, lire et localiser un QRCode avec PyZbar (Kevin)
+            - Erreur possible en cas de rotation de l'image (Kevin)
     4. Lire plusieurs QrCode sur une image
-    5. <del>Trouver la position d'1 robot</del>
-    6. <del>Trouver la position de plusieurs robots</del>
+        - Généraliser la technique de détection d'un QRCode à toute l'image (Kevin)
+    5. Trouver la position d'1 robot
+        - Calculer le centre du QRCode détecté à partir des coordonnées des sommets (Kevin)
+    6. Trouver la position de plusieurs robots
+        - Appliquer le point 5 à tous les QRCodes détectés (Kevin)
     4. Identifier un robot sur le terrain et le rentrer dans la BD
     5. Identifier un robot qui quitte la ligne
         1. Transformer une image RGB en grayscale
